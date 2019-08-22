@@ -9,15 +9,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Ads</title>
 </head>
 <body>
 <c:forEach var="ad" items="${ads}">
     <div class="ad">
-        <h2>${ad.id}</h2>
-        <p>${ad.userId}</p>
-        <p>${ad.title}</p>
-        <p>${ad.description}</p>
+        <h2>Ad: ${ad.id}</h2>
+        <p>User: ${ad.userId}</p>
+        <p>Title: ${ad.title}</p>
+        <p>Description: ${ad.description}</p>
     </div>
 </c:forEach>
 </body>
