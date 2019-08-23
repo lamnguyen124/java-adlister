@@ -10,9 +10,6 @@ import java.util.List;
     public class ShowAdsServlet extends HttpServlet {
         @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-            // Use the factory to get the dao object
-//            Ads AdsDao = DaoFactory.getAdsDao();
-            // Use a method on the dao to get all the products
             List<Ad> ads = DaoFactory.getAdsDao().all();
             // Pass the data to the jsp
             request.setAttribute("ads", ads);
