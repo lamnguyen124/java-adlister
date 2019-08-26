@@ -1,27 +1,25 @@
 import com.mysql.cj.jdbc.Driver;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MySQLAdsDao implements Ads {
-    private Connection connection;
-    private List<Ad> adsList;
+    Connection connection;
+
     public MySQLAdsDao(){
         try {
-            DriverManager.registerDriver(new Driver());
             Config config = new Config();
-            connection = DriverManager.getConnection(
-                    config.getUrl(),
-                    config.getUsername(),
-                    config.getPassword()
+            DriverManager.registerDriver(new Driver());
+            this.connection = DriverManager.getConnection(
+                    Config.getUrl(),
+                    Config.getUsername(),
+                    Config.getPassword()
             );
-
-
-        } catch (SQLException e){
-            e.printStackTrace();
+            System.out.println("Successfully connected to database");
+        } catch (SQLException ex){
+            System.out.println("Connection to database failed");
+            ex.printStackTrace();
         }
-        adsList = new ArrayList<>();
     }
 
     @Override
@@ -36,18 +34,14 @@ public class MySQLAdsDao implements Ads {
         }catch (SQLException e){
             e.printStackTrace();
         }
-
-
         return adsList;
-
-
     }
 
     @Override
     public Long insert(Ad ad) {
         try {
             Statement statement = connection.createStatement();
-            String adQuery = "INSERT INTO Ads(users_id, title, description) VALUES("+ad.getUserId()+",'"+ad.getTitle()+"','"+ad.getDescription()+"'"+")";
+            String adQuery = "INSERT INTO Ads(users_id, title, description) VALUES("+ad.getUserId()+",'"+ad.getTitle()+"','"+ad.getDescription()+"')";
             statement.executeUpdate(adQuery, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = statement.getGeneratedKeys();
             if(rs.next()){
